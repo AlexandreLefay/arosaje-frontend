@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {  Card, } from 'react-native-paper';
-import axios from "axios";
 import FormatDate from "../../components/guards/FormatDate";
 import {Style} from "../../components/Style";
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 
 const MyGuardsPage = ({ navigation }) => {
@@ -12,15 +11,15 @@ const MyGuardsPage = ({ navigation }) => {
     const [guardsList, setGuardsList] = useState([]);
     useEffect(() => {
         // Appel API pour récupérer les gardes
-        axios.get(apiIp+'/guardianships/user/{ownerUserId}?ownerUserId=1')
+      httpClient.get('/guardianships/user/{ownerUserId}?ownerUserId=1')
             .then(response => {
                 const guardsData = response.data;
                 // Appel API pour récupérer les plantes
-                axios.get(apiIp+'/plants')
+              httpClient.get('/plants')
                     .then(response => {
                         const plantsData = response.data;
                         // Appel API pour récupérer les users
-                        axios.get(apiIp+'/users')
+                      httpClient.get('/users')
                             .then(response => {
                                 const usersData = response.data;
                                 // Associez chaque garde à une plante

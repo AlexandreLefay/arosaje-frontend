@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Camera} from 'expo-camera';
 import {MaterialIcons} from '@expo/vector-icons';
-import axios from "axios";
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 const TakePhotoScreen = ({navigation, route}) => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -31,7 +30,7 @@ const TakePhotoScreen = ({navigation, route}) => {
             formData.append('plantId', route.params.plantId);
 
             try {
-                await axios.post(apiIp+'/photos/upload', formData, {
+                await httpClient.post('/photos/upload', formData, {
                     headers: {
                         'Accept': 'application/json',
                     },

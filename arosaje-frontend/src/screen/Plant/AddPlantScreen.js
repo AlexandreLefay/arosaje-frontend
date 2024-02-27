@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
-import axios from 'axios';
-import {apiIp} from "../../utils/config";
 import { TextInput, Button} from 'react-native-paper';
+import {httpClient} from "../../utils/httpClient";
 
 /**
  * Écran d'ajout de plante, redirige vers l'écran de prise de photo.
@@ -17,7 +16,7 @@ const AddPlantScreen = ({navigation}) => {
         userId: 1,
     });
     const handleSubmit = () => {
-        axios.post(apiIp+'/plants', plant)
+      httpClient.post('/plants', plant)
             .then(response => {
                 Alert.alert("Succès", "Plante ajoutée avec succès, prenez la en photo !");
                 navigation.navigate('TakePhoto', {plantId: response.data.id, userId: response.data.userId});

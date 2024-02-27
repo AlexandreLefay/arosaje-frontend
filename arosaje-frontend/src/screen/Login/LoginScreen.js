@@ -33,8 +33,12 @@ function LoginScreen() {
     const handleSubmit = () => {
         axios.post(apiIp+'/login', {username, password})
             .then(response => {
+                const currentUser = response.data
+                currentUser['jwt']= response.headers['x-authorization']
+
                 if (response.data.userId) {
-                    AsyncStorage.setItem('CURRENT_USER', JSON.stringify(response.data)).then(() => {
+
+                AsyncStorage.setItem('CURRENT_USER', JSON.stringify(currentUser)).then(() => {
                         navigateToHome();
                     });
                 } else {

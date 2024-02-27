@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import {Card} from "react-native-paper";
-import {Image, ScrollView, Text} from "react-native";
+import { ScrollView, Text} from "react-native";
 import FormatDate from "../../components/guards/FormatDate";
 import {Style} from "../../components/Style";
 import {getGuardById} from "../../api/GuardianshipsAPI/GuardiashipsAPI";
@@ -19,7 +19,7 @@ const GuardPage = (props) =>{
         getGuardById({guardId: guardId}).then(guardResponse =>{
             setGuard(guardResponse.data)
             guardData = guardResponse.data
-            if(guardData.guardId){
+            if(guardData.guardianId){
                 getUserById({userId: guardData.guardianId}).then(response =>{
                     setGuardian(response.data)})
             }

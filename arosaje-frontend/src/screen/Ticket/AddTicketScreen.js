@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {Alert, Button, StyleSheet, TextInput, View} from 'react-native';
-import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 const CreateTicketScreen = ({navigation}) => {
     const [title, setTitle] = useState('');
@@ -18,7 +17,7 @@ const CreateTicketScreen = ({navigation}) => {
         }
 
         try {
-            const response = await axios.post(apiIp+'/tickets', {
+            const response = await httpClient.post('/tickets', {
                 title,
                 description,
                 userId,

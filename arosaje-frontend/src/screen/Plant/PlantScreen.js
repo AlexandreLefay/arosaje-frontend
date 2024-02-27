@@ -1,10 +1,9 @@
 import React, {useCallback, useState} from 'react';
 import {Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import axios from "axios";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {AntDesign} from '@expo/vector-icons';
 import {Card} from 'react-native-paper';
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 const PlantScreen = () => {
     const navigation = useNavigation();
@@ -12,7 +11,7 @@ const PlantScreen = () => {
 
     useFocusEffect(
         useCallback(() => {
-            axios.get(apiIp + '/plants/user/1')
+            httpClient.get( '/plants/user/1')
                 .then((response) => {
                     const updatedPlants = response.data.map(plant => ({
                         ...plant,
@@ -41,7 +40,7 @@ const PlantScreen = () => {
                     text: "Supprimer",
                     onPress: () => {
                         console.log(plantId);
-                        axios.delete(apiIp + `/plants/${plantId}`)
+                        httpClient.delete( `/plants/${plantId}`)
                             .then(() => {
                                 setPlants(plants.filter(plant => plant.id !== plantId));
                             })

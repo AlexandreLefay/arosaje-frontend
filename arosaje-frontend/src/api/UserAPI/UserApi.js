@@ -1,6 +1,5 @@
-import axios from "axios";
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 export const getUserById = async (props) => {
-  return  await axios.get(apiIp+'/users/'+props.userId);
+  return  await httpClient.get('/users/'+props.userId);
 }

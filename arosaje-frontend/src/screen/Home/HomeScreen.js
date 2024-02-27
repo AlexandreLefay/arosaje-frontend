@@ -3,16 +3,27 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {Button, Card, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import HomeImage from './home-image.jpg';
+import {useEffect, useState} from "react";
+import {UserData} from "../../utils/UserData";
+import {httpClient} from "../../utils/httpClient";
+
 
 
 function HomeScreen() {
+    const[user, setUser] = useState(null)
+    useEffect( () => {
+        setUser(UserData())
+        console.log(httpClient)
+    }, []);
+
+
     const navigation = useNavigation();
     return (
         <ScrollView style={styles.container}>
             <Card style={styles.card}>
                 <Card.Cover source={HomeImage}/>
                 <Card.Content>
-                    <Text style={styles.title}>Bienvenue sur A'rosa-je!</Text>
+                    <Text style={styles.title}>Bienvenue sur A'rosa-je {user ? user.username : ''} !</Text>
                     <Text style={styles.paragraph}>
                         Arosaje est votre application du quotidien pour vous aider à soigner vos plantes.
                     </Text>

@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Avatar, Card, Paragraph, Text, Title} from 'react-native-paper';
-import axios from 'axios';
 import DefaultProfileImg from './defaultProfile.jpg';
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 function ProfilScreen() {
     const [userData, setUserData] = useState(null);
@@ -11,7 +10,7 @@ function ProfilScreen() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(apiIp+'/users/1');
+                const response = await httpClient.get('/users/1');
                 setUserData(response.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des données de l'utilisateur", error);

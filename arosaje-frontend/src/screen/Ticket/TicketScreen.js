@@ -1,10 +1,9 @@
 import React, {useCallback, useState} from 'react';
 import {Alert, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import axios from "axios";
 import {useFocusEffect, useNavigation} from "@react-navigation/native";
 import {AntDesign} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {apiIp} from "../../utils/config";
+import {httpClient} from "../../utils/httpClient";
 
 const TicketScreen = () => {
     const navigation = useNavigation();
@@ -12,7 +11,7 @@ const TicketScreen = () => {
 
     const fetchTickets = async () => {
         const currentUser = JSON.parse(await AsyncStorage.getItem('CURRENT_USER'));
-        axios.get(apiIp+`/tickets/user/${currentUser.userId}`)
+        httpClient.get(`/tickets/user/${currentUser.userId}`)
             .then((response) => {
                 setTickets(response.data);
             })
@@ -35,7 +34,7 @@ const TicketScreen = () => {
                 {text: "Annuler", style: "cancel"},
                 {
                     text: "Supprimer", onPress: () => {
-                        axios.delete(apiIp+`/tickets/${ticketId}`)
+                        httpClient.delete(`/tickets/${ticketId}`)
                             .then(() => {
                                 setTickets(tickets.filter(ticket => ticket.id !== ticketId));
                             })

@@ -1,14 +1,13 @@
 import {Button} from 'react-native-paper';
-import axios from "axios";
 import {useNavigation} from "@react-navigation/native";
-import {apiIp} from "../../utils/config";
 import {Style} from "../../components/Style";
+import {httpClient} from "../../utils/httpClient";
 export const PostGuardianships =(props) => {
   const navigation = useNavigation();
   
   const postRequest = () => {
     console.log(props)
-    axios.post(apiIp+'/guardianships',{
+    httpClient.post('/guardianships',{
       "statusId": props.form.statusId,
       "ownerId": props.form.ownerId,
       "plantId": props.form.plantId,
@@ -34,10 +33,10 @@ export const PostGuardianships =(props) => {
 }
 
 export const getGuardByUserId = async (props) => {
- return  await axios.get(apiIp+'/guardianships/user/{ownerUserId}?ownerUserId='+props.userId);
+ return  await httpClient.get('/guardianships/user/{ownerUserId}?ownerUserId='+props.userId);
 }
 
 export const getGuardById = async (props) => {
-  return await axios.get(apiIp+'/guardianships/{id}?id='+props.guardId);
+  return await httpClient.get('/guardianships/{id}?id='+props.guardId);
 }
 
