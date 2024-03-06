@@ -1,8 +1,6 @@
 .idea/
 .vscode/settings.json
 
-arosaje-frontend/package-lock.json
-
 arosaje-backend/.expo/settings.json
 
 arosaje-backend/.expo/
