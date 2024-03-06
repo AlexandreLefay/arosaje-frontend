@@ -1,1 +1,4 @@
-export const apiIp = 'http://localhost:9000/api'
+import Constants from 'expo-constants';
+
+export const apiIp = Constants.expoConfig.extra.apiUrl;
+

@@ -1,0 +1,54 @@
+name: update
+on:
+  push:
+    branches: [ "master" ]  # Trigger on push events to the master branch
+  pull_request:
+    branches: [ "master" ]  # Also trigger on pull requests to the master branch
+    types: [opened, synchronize, reopened]  # Types of pull request events to trigger on
+
+# Sets permissions for the workflow
+permissions: write-all
+
+jobs:
+  update:
+    name: EAS Update
+    runs-on: ubuntu-latest  # Run this job on the latest Ubuntu runner
+    steps:
+      - name: Check for EXPO_TOKEN  # Ensure the EXPO_TOKEN secret is present
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "EXPO_TOKEN secret is missing."
+            exit 1
+          fi
+
+      - name: Checkout repository  # Check out the repository code
+        uses: actions/checkout@v3
+
+      - name: Setup Node  # Setup Node environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x  # Specify the node version
+          cache: 'npm'  # Cache npm modules
+          cache-dependency-path: ./arosaje-frontend/package-lock.json
+
+      - name: Setup EAS  # Setup EAS CLI with the provided version and token
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest  # Use the latest version of eas-cli
+          token: ${{ secrets.EXPO_TOKEN }}  # Use the EXPO_TOKEN for authentication
+
+      - name: Install dependencies  # Install npm dependencies
+        run: npm install
+        working-directory: ./arosaje-frontend
+
+      - name: Install EAS CLI  # Globally install eas-cli
+        run: npm install -g eas-cli
+        working-directory: ./arosaje-frontend
+
+      - name: Set NODE_ENV and run EAS Update  # Set the NODE_ENV to production and run eas update
+        run: |
+          export NODE_ENV=production
+          eas update --auto
+        working-directory: ./arosaje-frontend
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}  # Pass the EXPO_TOKEN to the environment
