@@ -13,6 +13,17 @@ export const Style = StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 0.25,
   },
+  profileHeader: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  avatar: {
+    marginBottom: 8,
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: 'bold',
+  },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -22,6 +33,14 @@ export const Style = StyleSheet.create({
   paragraph: {
     fontSize: 16,
     lineHeight: 24,
+  },
+  paragraph_italic: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontStyle: 'italic',
+  },
+  error:{
+    color: 'red',
   },
   heading: {
     fontSize: 20,
@@ -40,12 +59,11 @@ export const Style = StyleSheet.create({
   },
   input: {
     height: 40,
-    marginBottom: 12,
+    marginBottom: 15,
     borderWidth: 1,
     padding: 10,
     borderRadius: 5,
   },
-
    containerHorizontal:{
     flex: 1,
     flexDirection: 'row',

@@ -30,8 +30,15 @@ function LoginScreen() {
         });
     };
 
+    const navigateToSignUp = () => {
+        navigation.reset({
+            index: 0,
+            routes: [{name: 'SignUp'}],
+        });
+    };
+
     const handleSubmit = () => {
-        axios.post(apiIp+'/login', {username, password})
+         axios.post(apiIp+'/login', {username, password})
             .then(response => {
                 const currentUser = response.data
                 currentUser['jwt']= response.headers['x-authorization']
@@ -82,6 +89,9 @@ function LoginScreen() {
                     />
                     <Button mode="contained" onPress={handleSubmit} style={styles.button}>
                         Se connecter
+                    </Button>
+                    <Button mode="contained" onPress={navigateToSignUp} style={styles.button}>
+                        S'inscrire
                     </Button>
                 </View>
             </ScrollView>

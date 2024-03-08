@@ -11,16 +11,18 @@ import GuardPage from "../pages/Guards/GuardPage";
 import AddPlantScreen from "../screen/Plant/AddPlantScreen";
 import TakePhotoScreen from "../screen/Plant/TakePhotoScreen";
 import AddTicketScreen from "../screen/Ticket/AddTicketScreen";
+import SignUpScreen from "../screen/SignUp/SignUpScreen";
 
 const Stack = createNativeStackNavigator();
 
 function AppNavigator() {
-    const [headerTitle, setHeaderTitle] = React.useState("Home");
+    const [ headerTitle, setHeaderTitle] = React.useState("Home");
 
     return (
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="Login" component={LoginScreen}/>
+                <Stack.Screen name="SignUp" component={SignUpScreen}/>
                 <Stack.Screen name="Home" component={BottomNavigator}
                               options={({route}) => ({
                                   title: route.params?.title || 'Titre par Défaut',

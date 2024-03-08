@@ -8,7 +8,7 @@ import {PostGuardianships} from "../../api/GuardianshipsAPI/GuardiashipsAPI";
 
 const GuardForm = (navigation) => {
 
-  const[startDate, setStartDate] = useState(new Date())
+  const[startDate] = useState(new Date())
   const[endDate, setEndDate] = useState(dateAddYears(2, new Date()))
 
   const [formData, setFormData] = useState({
@@ -56,7 +56,7 @@ const GuardForm = (navigation) => {
     <ScrollView style={Style.container}
                 keyboardShouldPersistTaps="handled">
       <Card>
-        <TextInput label={"Nom de la garde :"}
+        <TextInput label={"Nom de la garde : "}
                    value={formData.title}
                    onChangeText={(text) => handleInputChange('title', text)}
                    style={Style.input}
